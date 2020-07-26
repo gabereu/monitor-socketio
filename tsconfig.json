@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+      "moduleResolution": "Node",
+      "target": "ES2017",
+      "module": "commonjs",
+      "outDir": "./dist",
+      "lib": ["ES6"],
+      "strict": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "noImplicitReturns": true,
+      "noFallthroughCasesInSwitch": true,
+      "esModuleInterop": true,
+    },
+    "include": ["src/index.ts"],
+    "exclude": ["node_modules", "**/*.test.ts"]
+  }
