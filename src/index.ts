@@ -20,23 +20,38 @@ export class Monitor{
         const io = this.io;
 
         server.use((socket, next)=>{
-            io.of('/monitor').emit('Connected', socket.id);
+
+            io.of('/monitor').emit('Connected', {
+                id: socket.id,
+                namespace: socket.nsp.name,
+                rooms: socket.rooms,
+            });
+
             socket.use((packet, next)=>{
                 const received = {
-                    from: socket.id,
+                    from: {
+                        id: socket.id,
+                        namespace: socket.nsp.name,
+                        rooms: socket.rooms,
+                    },
                     data: packet,
                 }
-                io.of('/monitor').emit('received', received);
+                io.of('/monitor').emit('Received', received);
                 next();
             });
+
             var emit = socket.emit;
             socket.emit = function() {
                 const emitted ={
-                    to: socket.id,
+                    to: {
+                        id: socket.id,
+                        namespace: socket.nsp.name,
+                        rooms: socket.rooms,
+                    },
                     data: Array.prototype.slice.call(arguments)
                 }
-
-                io.of('/monitor').emit('emitted', emitted);
+                console.log('emitted', Object.keys(socket.rooms))
+                io.of('/monitor').emit('Emitted', emitted);
                 return emit.apply(socket, arguments as any);
             };
 
@@ -44,11 +59,12 @@ export class Monitor{
         });
 
         io.of('/monitor').on('connect', socket => {
-            // console.log('monitor: ', socket.id);
             socket.on('getSockets', (namespace, callback)=>{
                 const sockets = over(server.of(namespace).sockets).reduce((previus, _socket, key)=> {
                     previus.push({
-                        id: key
+                        id: key,
+                        namespace: _socket.nsp.name,
+                        rooms: _socket.rooms,
                     });
                     return previus;
                 }, [] as unknown as [{}]);
@@ -59,6 +75,6 @@ export class Monitor{
     }
 
     emit(name: string, ...data: any[]){
-        this.io?.of('/monitor').emit('monitoremitted', name, ...data);
+        this.io?.of('/monitor').emit('Monitoremitted', name, ...data);
     }
 }
