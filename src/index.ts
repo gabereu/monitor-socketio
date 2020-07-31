@@ -75,6 +75,6 @@ export class Monitor{
     }
 
     emit(name: string, ...data: any[]){
-        this.io?.of('/monitor').emit('Monitoremitted', name, ...data);
+        this.io?.of('/monitor').emit('Monitoremitted', {name, data});
     }
 }
