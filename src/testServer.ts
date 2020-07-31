@@ -10,6 +10,7 @@ monitor.watch(io);
 io.on('connect', socket=>{
     // console.log('hey: ', socket.id);
     monitor.emit('conneted', socket.id)
+    socket.emit('hello');
     socket.join('hey')
     // new Promise(resolve => setTimeout(()=>{
     //     socket.emit('hello');
