@@ -16,7 +16,7 @@ npm install monitor-socketio
 
 ```js
 import Server from 'socket.io';
-import { Monitor } from './index';
+import { Monitor } from 'monitor-socketio';
 
 const io = new Server(3333);
 
@@ -32,7 +32,7 @@ Monitor will emit messages from you socketio server or using a custom server. Yo
 
 ```js
 import Server from 'socket.io';
-import { Monitor } from './index';
+import { Monitor } from 'monitor-socketio';
 
 const io = new Server(3333);
 
@@ -49,7 +49,7 @@ monitor.watch(io);
 ```js
 
 import Server from 'socket.io';
-import { Monitor } from './index';
+import { Monitor } from 'monitor-socketio';
 
 const io = new Server(3333);
 
