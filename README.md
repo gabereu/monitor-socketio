@@ -2,6 +2,10 @@
 
 Monitor Socketio is a package to monitor your socketio server
 
+## Monitoring Interface
+
+Use our [monitoring interface](https://github.com/gabereu/web-monitor-socketio).
+
 ## Install
 
 ```bash
